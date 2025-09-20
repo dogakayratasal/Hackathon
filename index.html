@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!doctype html>
+<html lang="tr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sürdürülebilir Dönüşüm</title>
+  <style>
+    :root {
+      --brand: #0b7a75;
+      --accent: #f6b042;
+      --bg: #f7f9fa;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --maxw: 1100px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #f7fbfa, #f0f7f6);
+      color: #0f172a;
+      line-height: 1.45
+    }
+
+    .container {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 1.25rem
+    }
+
+    /* Üst Slogan Bar */
+    .slogan-bar {
+      background: linear-gradient(90deg, #0b7a75, #0fb7a8, #f6b042);
+      color: white;
+      text-align: center;
+      padding: .85rem .75rem;
+      font-weight: 800;
+      font-size: .98rem;
+      letter-spacing: .6px;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      background: rgba(255, 255, 255, .9);
+      padding: 1rem 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .05);
+      position: sticky;
+      top: 0;
+      z-index: 100
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: var(--brand);
+      font-weight: 600;
+      padding: .25rem .5rem;
+      border-radius: 6px
+    }
+
+    .navbar a:hover {
+      color: #064f4b;
+      background: rgba(11, 122, 117, .06)
+    }
+
+    section {
+      padding: 3rem 1rem
+    }
+
+    h2 {
+      margin: 0 0 1rem;
+      text-align: center;
+      color: var(--brand)
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem
+    }
+
+    /* Kart Stilleri */
+    .card {
+      background: var(--card);
+      padding: 1.25rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, .05)
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    /* Bilgilendirme */
+    .info-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem
+    }
+
+    .info-item {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .04);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center
+    }
+
+    .info-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: .5rem
+    }
+
+    /* Organizasyonlar listesi */
+    .org-list {
+      display: grid;
+      gap: .75rem
+    }
+
+    .org-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .75rem;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #fff, #fbfdfc);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .03)
+    }
+
+    .org-item .meta {
+      font-size: .95rem;
+      color: var(--muted)
+    }
+
+    /* Projeler */
+    form.card textarea {
+      resize: vertical
+    }
+
+    footer {
+      padding: 2rem 1rem;
+      text-align: center;
+      color: var(--muted);
+      background: transparent
+    }
+
+    @media (max-width:700px) {
+      .org-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: .5rem
+      }
+    }
+
+    /* Harita */
+    #map {
+      height: 300px;
+      border-radius: 12px;
+      margin-top: 1rem;
+    }
+  </style>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+
+<body>
+
+  <div class="slogan-bar">
+    BU DEĞİŞİM SADECE MARKALARIN VE HÜKÜMETLERİN DEĞİŞİMİ DEĞİL HEPİMİZİN DEĞİŞİMİ!
+  </div>
+
+  <nav class="navbar">
+    <a href="#anasayfa">Anasayfa</a>
+    <a href="#organizasyonlar">Organizasyonlar</a>
+    <a href="#projeler">Proje Fikirleriniz</a>
+    <a href="#hakkimizda">Hakkımızda</a>
+  </nav>
+
+  <!-- ANASAYFA -->
+  <section id="anasayfa">
+    <h2>Anasayfa</h2>
+
+    <div class="grid">
+      <!-- MİSYON -->
+      <div class="card">
+        <h3>✨ Misyonumuz</h3>
+        <p class="muted" style="margin-top:.5rem;">
+          “Tekstil atıklarını azaltarak doğaya nefes aldırmak, bireyleri ve toplulukları sürdürülebilir tüketim konusunda bilinçlendirmek; küçük adımlarla büyük bir değişim yaratmak.”
+        </p>
+      </div>
+
+      <!-- VİZYON -->
+      <div class="card">
+        <h3>🌍 Vizyonumuz</h3>
+        <p class="muted" style="margin-top:.5rem;">
+          “Gelecek nesillere daha temiz, adil ve sürdürülebilir bir dünya bırakmak için, bireylerin, markaların ve toplumların el ele verdiği küresel bir dönüşümün parçası olmak.”
+        </p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:2rem">Bilgilendirme</h2>
+    <div class="info-list">
+      <div class="info-item">
+        <img src="https://img.icons8.com/color/96/recycle.png" alt="geri dönüşüm">
+        <p>Giysilerin neredeyse <strong>%1</strong>’inden azı geri dönüştürülüyor.</p>
+      </div>
+      <div class="info-item">
+        <img src="https://img.icons8.com/color/96/land.png" alt="çöplük">
+        <p>Neredeyse <strong>%73</strong>’ü toprağa gömülüyor veya yakılıyor.</p>
+      </div>
+      <div class="info-item">
+        <img src="https://img.icons8.com/color/96/clock.png" alt="süre">
+        <p>Son 20 yılda bir giysiyi kullanma süremiz <strong>%36</strong> azalmış.</p>
+      </div>
+      <div class="info-item">
+        <img src="https://img.icons8.com/color/96/water.png" alt="su kirliliği">
+        <p>Tekstil sektörü temiz su kirliliğinin <strong>%20</strong>’sini oluşturuyor (özellikle boya işlemlerinden dolayı).</p>
+      </div>
+      <div class="info-item">
+        <img src="https://img.icons8.com/color/96/t-shirt.png" alt="tişört">
+        <p>Bir pamuklu tişört için <strong>2700 L</strong> su harcanıyor — bu, bir insanın <strong>2,5 yıllık</strong> içme suyuna eşdeğer.</p>
+      </div>
+      <div class="info-item">
+        <img src="https://img.icons8.com/color/96/africa.png" alt="Gana">
+        <p>Her hafta Gana’ya <strong>15 milyon</strong> ikinci el kıyafet geliyor; bunların <strong>%40</strong>’ı direkt atılıyor.</p>
+      </div>
+      <!-- Yeni bilgi -->
+      <div class="info-item">
+        <img src="https://img.icons8.com/color/96/reuse.png" alt="yeniden kullanım">
+        <p>2. el eşyalar, sıfırdan üretime göre <strong>70 kat daha az</strong> zarar veriyor.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORGANİZASYONLAR -->
+  <section id="organizasyonlar">
+    <h2>Organizasyonlar</h2>
+
+    <div class="card" style="margin-bottom:1rem">
+      <p class="muted">Aşağıda planlanmış bazı organizasyon örnekleri ve tarih/saat bilgileri yer alıyor. Gönüllü talebi oluşturabilir, konumunuzu girerek yakınınızdaki etkinlikleri görebilirsiniz.</p>
+    </div>
+
+    <div class="org-list">
+      <div class="org-item card">
+        <div>
+          <strong>Temizlik Kampanyası</strong>
+          <div class="meta">Tarih: 25 Eylül 2025 — Saat: 10:00</div>
+        </div>
+        <div><button style="background:var(--brand);color:#fff;padding:.45rem .7rem;border:none;border-radius:6px">Katıl / Talep</button></div>
+      </div>
+
+      <div class="org-item card">
+        <div>
+          <strong>Geri Dönüşüm Atölyesi</strong>
+          <div class="meta">Tarih: 5 Ekim 2025 — Saat: 14:00</div>
+        </div>
+        <div><button style="background:var(--brand);color:#fff;padding:.45rem .7rem;border:none;border-radius:6px">Katıl / Talep</button></div>
+      </div>
+
+      <div class="org-item card">
+        <div>
+          <strong>Onarım & Yeniden Kullanım Buluşması</strong>
+          <div class="meta">Tarih: 12 Ekim 2025 — Saat: 11:00</div>
+        </div>
+        <div><button style="background:var(--brand);color:#fff;padding:.45rem .7rem;border:none;border-radius:6px">Katıl / Talep</button></div>
+      </div>
+    </div>
+
+    <!-- Harita alanı -->
+    <div id="map"></div>
+
+    <div class="card" style="margin-top:1rem">
+      <h3>Gönüllü Talep Formu</h3>
+      <form id="volForm" onsubmit="event.preventDefault();handleVolunteer()">
+        <input id="vName" placeholder="Adınız" required style="width:100%;padding:.5rem;margin:.5rem 0;border:1px solid #e6eef0;border-radius:6px" />
+        <input id="vEmail" placeholder="E-posta" required style="width:100%;padding:.5rem;margin:.5rem 0;border:1px solid #e6eef0;border-radius:6px" />
+        <input id="vLocation" placeholder="Konum (il/ilçe veya adres)" style="width:100%;padding:.5rem;margin:.5rem 0;border:1px solid #e6eef0;border-radius:6px" />
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button type="submit" style="background:var(--brand);color:white;padding:.5rem 1rem;border:none;border-radius:6px">Talep Gönder</button>
+          <button type="button" onclick="alert('Yakınınızdaki organizasyonlar örnek gösterilemiyor — demo sürüm.')" style="background:#fff;border:1px solid #e6eef0;padding:.5rem 1rem;border-radius:6px">Konuma Göre Ara</button>
+        </div>
+        <p class="muted" style="margin-top:.6rem">Not: Bu demo sürümde konuma göre gerçek harita sorgusu bulunmuyor; istersen harita entegrasyonu ekleyebilirim.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- PROJELER -->
+  <section id="projeler">
+    <h2>Proje Fikirleriniz</h2>
+    <div class="card">
+      <form id="ideaForm" onsubmit="event.preventDefault();addIdea()">
+        <textarea id="ideaText" placeholder="Proje fikrinizi yazın... (kısa açıklama ve iletişim bilgisi ekleyebilirsiniz)" required style="width:100%;padding:.75rem;height:120px;margin-bottom:.5rem;border:1px solid #ccc;border-radius:6px"></textarea>
+        <div style="display:flex;gap:.5rem;align-items:center">
+          <input id="ideaName" placeholder="Adınız (isteğe bağlı)" style="padding:.5rem;border:1px solid #e6eef0;border-radius:6px" />
+          <button type="submit" style="background:var(--brand);color:white;padding:.5rem 1rem;border:none;border-radius:6px">Paylaş</button>
+        </div>
+      </form>
+
+      <div id="ideasList" style="margin-top:1rem;display:grid;gap:.6rem"></div>
+    </div>
+  </section>
+
+  <!-- HAKKIMIZDA -->
+  <section id="hakkimizda">
+    <h2>Hakkımızda</h2>
+    <div class="card">
+      <p>Biz tekstil atıklarıyla mücadele eden gönüllü bir oluşumuz. Amacımız, daha sürdürülebilir bir gelecek için farkındalık yaratmak ve somut adımlar atmak.</p>
+      <p><strong>Telefon:</strong> 0546 201 08 45 <br>
+        <strong>E-posta:</strong> dogakayratasal@gmail.com</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 — Sürdürülebilir Dönüşüm
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    // Basit local demo: projeler ve gönüllü taleplerini local olarak gösterir
+    function addIdea() {
+      const txt = document.getElementById('ideaText');
+      const name = document.getElementById('ideaName').value || 'Anonim';
+      if (!txt.value.trim()) return;
+      const list = document.getElementById('ideasList');
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = '<strong>' + escapeHtml(name) + '</strong><p class="muted" style="margin-top:.5rem">' + escapeHtml(txt.value) + '</p>';
+      list.prepend(card);
+      txt.value = '';
+      document.getElementById('ideaName').value = '';
+      alert('Fikriniz paylaşıldı (demo).');
+    }
+
+    function handleVolunteer() {
+      const name = document.getElementById('vName').value;
+      const email = document.getElementById('vEmail').value;
+      const loc = document.getElementById('vLocation').value;
+      alert('Teşekkürler ' + name + '! Gönüllü talebiniz alınmıştır (demo).');
+      document.getElementById('volForm').reset();
+    }
+
+    // simple escape to avoid basic HTML injection in demo
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, function (m) {
+        return ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[m]);
+      });
+    }
+
+    // Leaflet Harita
+    const map = L.map('map').setView([41.0082, 28.9784], 11); // İstanbul merkez
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Organizasyon örnek markerleri
+    L.marker([41.015137, 28.979530]).addTo(map).bindPopup("Temizlik Kampanyası<br>25 Eylül 2025 — 10:00");
+    L.marker([41.0220, 29.0120]).addTo(map).bindPopup("Geri Dönüşüm Atölyesi<br>5 Ekim 2025 — 14:00");
+    L.marker([41.0400, 28.9900]).addTo(map).bindPopup("Onarım & Yeniden Kullanım Buluşması<br>12 Ekim 2025 — 11:00");
+  </script>
+</body>
+</html>
+
+</body>
+</html>
